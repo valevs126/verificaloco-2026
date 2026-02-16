@@ -1,0 +1,1 @@
+# verificaloco-2026
