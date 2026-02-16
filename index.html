@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///Users/Valentina/Downloads/remixed-76805997.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifícaloCO - Prototipo Plataforma Educativa</title>
+    <link href="./VerifícaloCO - Prototipo Plataforma Educativa_files/css2" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #E63946;
+            --secondary: #457B9D;
+            --accent: #F1FAEE;
+            --dark: #1D3557;
+            --warning: #FFB703;
+            --success: #06D6A0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--accent);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,150 Q300,50 600,150 T1200,150 L1200,600 L0,600 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideDown 0.8s ease-out 0.2s backwards;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: slideDown 0.8s ease-out 0.4s backwards;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            sticky: top;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Problema Section */
+        .problema-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .problema-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid var(--primary);
+        }
+
+        .problema-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .problema-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .problema-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .problema-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .problema-card li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Verificador Prototype */
+        .verificador-demo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .verificador-demo h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .input-group {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .verificar-btn {
+            background: var(--warning);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .verificar-btn:hover {
+            background: #FFD60A;
+            transform: scale(1.05);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .step-number {
+            background: var(--warning);
+            color: var(--dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin: 0 auto 1rem;
+        }
+
+        /* Derechos Humanos */
+        .ddhh-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .ddhh-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--secondary);
+        }
+
+        .ddhh-card .article {
+            background: var(--secondary);
+            color: white;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .ddhh-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .ddhh-card .status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .status.vulnerado {
+            background: #FFE5E5;
+            color: var(--primary);
+        }
+
+        .status.activado {
+            background: #E5F9F0;
+            color: var(--success);
+        }
+
+        /* Instituciones */
+        .instituciones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .institucion-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .institucion-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .institucion-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--warning));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .rating {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+
+        /* Solución */
+        .solucion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .solucion-card {
+            background: linear-gradient(135deg, white, #f8f9fa);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--success);
+        }
+
+        .solucion-card h3 {
+            color: var(--success);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Equipo */
+        .equipo-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .equipo-info h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .equipo-members {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .member {
+            text-align: center;
+        }
+
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin: 0 auto 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="badge">PROTOTIPO FASE 3 - Ciencias Políticas 10B</div>
+            <h1>VerifícaloCO 2026</h1>
+            <p class="subtitle">Plataforma Educativa Interactiva para Combatir la Desinformación en Elecciones Presidenciales</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="file:///Users/Valentina/Downloads/remixed-76805997.html#problema">El Problema</a></li>
+            <li><a href="file:///Users/Valentina/Downloads/remixed-76805997.html#verificador">Verificador</a></li>
+            <li><a href="file:///Users/Valentina/Downloads/remixed-76805997.html#ddhh">DD.HH.</a></li>
+            <li><a href="file:///Users/Valentina/Downloads/remixed-76805997.html#instituciones">Instituciones</a></li>
+            <li><a href="file:///Users/Valentina/Downloads/remixed-76805997.html#solucion">Nuestra Solución</a></li>
+        </ul>
+    </nav>
+
+    <!-- Problema Section -->
+    <section id="problema" style="animation: 0.6s ease-out 0s 1 normal none running fadeIn;">
+        <h2 class="section-title">El Problema Identificado</h2>
+        <p class="section-subtitle">Desinformación por IA y Redes Sociales en Elecciones 2026</p>
+        
+        <div class="problema-grid">
+            <div class="problema-card">
+                <h3>🤖 Amenaza Tecnológica</h3>
+                <p>La Inteligencia Artificial permite crear contenido falso que parece real:</p>
+                <ul>
+                    <li>Deepfakes de candidatos</li>
+                    <li>Audios falsos</li>
+                    <li>Vallas publicitarias manipuladas</li>
+                    <li>Bots que replican mentiras</li>
+                </ul>
+            </div>
+
+            <div class="problema-card">
+                <h3>📊 Datos Preocupantes</h3>
+                <ul>
+                    <li>Solo 30% verifica información</li>
+                    <li>75.5% poco informado en 2022</li>
+                    <li>Algoritmos priorizan likes sobre verdad</li>
+                    <li>90% del contenido podría ser IA en 2026</li>
+                </ul>
+            </div>
+
+            <div class="problema-card">
+                <h3>⚖️ Impacto Democrático</h3>
+                <ul>
+                    <li>Votantes toman decisiones basadas en mentiras</li>
+                    <li>Daño a la confianza institucional</li>
+                    <li>Polarización social aumentada</li>
+                    <li>Debilitamiento de la democracia</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verificador Demo -->
+    <section id="verificador">
+        <h2 class="section-title">Verificador de Noticias</h2>
+        <p class="section-subtitle">Función principal de nuestra plataforma</p>
+
+        <div class="verificador-demo">
+            <h3>🔍 Prototipo del Verificador Interactivo</h3>
+            
+            <div class="input-group">
+                <label>Pega aquí la noticia o titular que quieres verificar:</label>
+                <textarea placeholder="Ejemplo: &#39;Candidato X promete eliminar todos los impuestos si es elegido&#39;"></textarea>
+            </div>
+
+            <button class="verificar-btn">✓ Verificar Ahora</button>
+
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p><strong>Análisis de Fuente</strong></p>
+                    <p>Verificamos el origen</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p><strong>Contraste</strong></p>
+                    <p>Comparamos con medios confiables</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p><strong>Contexto</strong></p>
+                    <p>Proporcionamos información completa</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <p><strong>Calificación</strong></p>
+                    <p>Verdadero, Falso o Engañoso</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DD.HH. Section -->
+    <section id="ddhh">
+        <h2 class="section-title">Relación con Derechos Humanos</h2>
+        <p class="section-subtitle">Derechos constitucionales afectados por la desinformación</p>
+
+        <div class="ddhh-grid">
+            <div class="ddhh-card">
+                <span class="article">Art. 20 CP</span>
+                <h3>Derecho a Información Veraz</h3>
+                <p>"Se garantiza a toda persona... recibir información veraz e imparcial"</p>
+                <p><strong>Situación:</strong> Las fake news generadas por IA violan este derecho fundamental.</p>
+                <span class="status vulnerado">❌ VULNERADO</span>
+            </div>
+
+            <div class="ddhh-card">
+                <span class="article">Art. 40 CP</span>
+                <h3>Derecho a Participación Política</h3>
+                <p>"Todo ciudadano tiene derecho a participar en la conformación del poder político"</p>
+                <p><strong>Situación:</strong> La desinformación afecta decisiones electorales informadas.</p>
+                <span class="status vulnerado">❌ VULNERADO</span>
+            </div>
+
+            <div class="ddhh-card">
+                <span class="article">Art. 20 CP</span>
+                <h3>Libertad de Expresión</h3>
+                <p>"...libertad de expresar y difundir su pensamiento y opiniones"</p>
+                <p><strong>Situación:</strong> Las redes permitieron más voces en el debate público.</p>
+                <span class="status activado">✓ PARCIALMENTE ACTIVADO</span>
+            </div>
+
+            <div class="ddhh-card">
+                <span class="article">4ta Generación</span>
+                <h3>Derechos Digitales Emergentes</h3>
+                <p>Necesitamos reconocer nuevos derechos:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li>✓ Derecho a alfabetización digital</li>
+                    <li>✓ Derecho a no ser objeto de deepfakes</li>
+                    <li>✓ Derecho a protección de datos</li>
+                </ul>
+                <span class="status" style="background: #FFF3CD; color: #856404;">⚠️ NO RECONOCIDOS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instituciones -->
+    <section id="instituciones">
+        <h2 class="section-title">Institucionalidad Estatal</h2>
+        <p class="section-subtitle">Análisis de instituciones que funcionaron y fallaron</p>
+
+        <h3 style="color: var(--success); text-align: center; margin: 2rem 0;">✓ Instituciones que Funcionaron</h3>
+        <div class="instituciones-grid">
+            <div class="institucion-card">
+                <div class="institucion-icon">🎓</div>
+                <h4>Universidad Externado</h4>
+                <p>Investigó y documentó el fenómeno con evidencia empírica</p>
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <p><strong>5/5</strong></p>
+            </div>
+
+            <div class="institucion-card">
+                <div class="institucion-icon">✓</div>
+                <h4>ColombiaCheck</h4>
+                <p>Verificadores de hechos que combaten fake news</p>
+                <div class="rating">⭐⭐⭐⭐</div>
+                <p><strong>4/5</strong></p>
+            </div>
+
+            <div class="institucion-card">
+                <div class="institucion-icon">📋</div>
+                <h4>Registraduría</h4>
+                <p>Garantizó transparencia en conteo de votos</p>
+                <div class="rating">⭐⭐⭐</div>
+                <p><strong>3/5</strong> - Sobrepasada por lo digital</p>
+            </div>
+        </div>
+
+        <h3 style="color: var(--primary); text-align: center; margin: 3rem 0 2rem;">❌ Instituciones que Fallaron</h3>
+        <div class="instituciones-grid">
+            <div class="institucion-card">
+                <div class="institucion-icon">📚</div>
+                <h4>MinEducación</h4>
+                <p>NO incluyó alfabetización digital en currículo</p>
+                <div class="rating">⭐</div>
+                <p><strong>1/5</strong></p>
+            </div>
+
+            <div class="institucion-card">
+                <div class="institucion-icon">💻</div>
+                <h4>MinTIC</h4>
+                <p>NO regula contenido político en redes sociales</p>
+                <div class="rating">⭐</div>
+                <p><strong>1/5</strong></p>
+            </div>
+
+            <div class="institucion-card">
+                <div class="institucion-icon">⚖️</div>
+                <h4>Congreso</h4>
+                <p>NO ha legislado sobre desinformación electoral</p>
+                <div class="rating">⭐</div>
+                <p><strong>1/5</strong></p>
+            </div>
+
+            <div class="institucion-card">
+                <div class="institucion-icon">🏛️</div>
+                <h4>CNE</h4>
+                <p>NO puede regular propaganda en redes</p>
+                <div class="rating">⭐⭐</div>
+                <p><strong>2/5</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solución -->
+    <section id="solucion">
+        <h2 class="section-title">Nuestra Propuesta de Solución</h2>
+        <p class="section-subtitle">Estrategia integral para combatir la desinformación</p>
+
+        <div class="solucion-grid">
+            <div class="solucion-card">
+                <h3>🎓 Educación Digital Ciudadana</h3>
+                <p><strong>Qué haremos:</strong></p>
+                <ul>
+                    <li>Talleres de alfabetización digital</li>
+                    <li>Cursos online gratuitos</li>
+                    <li>Guías descargables</li>
+                    <li>Campañas en redes sociales</li>
+                </ul>
+            </div>
+
+            <div class="solucion-card">
+                <h3>🔍 Plataforma de Verificación</h3>
+                <p><strong>Características:</strong></p>
+                <ul>
+                    <li>Verificador automático de noticias</li>
+                    <li>Base de datos de fake news detectadas</li>
+                    <li>Alertas en tiempo real</li>
+                    <li>Extensión para navegadores</li>
+                </ul>
+            </div>
+
+            <div class="solucion-card">
+                <h3>⚖️ Incidencia Política</h3>
+                <p><strong>Acciones:</strong></p>
+                <ul>
+                    <li>Impulsar ley de transparencia digital</li>
+                    <li>Exigir regulación de plataformas</li>
+                    <li>Tipificar desinformación electoral</li>
+                    <li>Fortalecer instituciones electorales</li>
+                </ul>
+            </div>
+
+            <div class="solucion-card">
+                <h3>🤝 Colaboración Interinstitucional</h3>
+                <p><strong>Alianzas con:</strong></p>
+                <ul>
+                    <li>Universidades (investigación)</li>
+                    <li>Medios de comunicación</li>
+                    <li>Organizaciones de sociedad civil</li>
+                    <li>Verificadores de hechos</li>
+                </ul>
+            </div>
+
+            <div class="solucion-card">
+                <h3>📱 Herramientas Tecnológicas</h3>
+                <p><strong>Desarrollo de:</strong></p>
+                <ul>
+                    <li>App móvil para verificación</li>
+                    <li>Bot de WhatsApp informativo</li>
+                    <li>Quiz educativos interactivos</li>
+                    <li>Recursos multimedia</li>
+                </ul>
+            </div>
+
+            <div class="solucion-card">
+                <h3>📊 Monitoreo y Evaluación</h3>
+                <p><strong>Seguimiento de:</strong></p>
+                <ul>
+                    <li>Tendencias de desinformación</li>
+                    <li>Efectividad de intervenciones</li>
+                    <li>Nivel de alfabetización digital</li>
+                    <li>Impacto en elecciones 2026</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipo -->
+    <section>
+        <div class="equipo-info">
+            <h3>Equipo de Trabajo - 10B</h3>
+            <p><strong>Profesor:</strong> John Mario Gómez</p>
+            <div class="equipo-members">
+                <div class="member">
+                    <div class="member-avatar">CA</div>
+                    <p><strong>Camila Aguado</strong></p>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">DL</div>
+                    <p><strong>Daniel Lopez</strong></p>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">VV</div>
+                    <p><strong>Valentina Villavicencio</strong></p>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; color: var(--secondary);"><strong>Fase 3:</strong> Prototipo STEAM de Incidencia Ciudadana</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>VerifícaloCO 2026</strong></p>
+        <p>Prototipo de Plataforma Educativa Interactiva</p>
+        <p>Ciencias Políticas - Fase 3 - Semana 5-6</p>
+        <p style="margin-top: 1rem; opacity: 0.7;">Este es un prototipo educativo creado como parte del portafolio de Ciencias Políticas</p>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Verificador demo interaction
+        document.querySelector('.verificar-btn').addEventListener('click', function() {
+            alert('🔍 FUNCIÓN DE VERIFICACIÓN (Demo)\n\n' +
+                  'En la versión completa, esta función:\n\n' +
+                  '1. Analizará la noticia con IA\n' +
+                  '2. Buscará en bases de datos verificadas\n' +
+                  '3. Consultará fuentes oficiales\n' +
+                  '4. Mostrará resultado: VERDADERO, FALSO o ENGAÑOSO\n' +
+                  '5. Proporcionará contexto y fuentes confiables\n\n' +
+                  'Este es un prototipo educativo.');
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.6s ease-out';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+</body></html>
